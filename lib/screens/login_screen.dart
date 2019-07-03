@@ -12,6 +12,9 @@ class WelcomeScreenState extends State<WelcomeScreen> {
 
   var _formKey = GlobalKey<FormState>();
 
+  TextEditingController nameController = TextEditingController();
+  TextEditingController incomeController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +66,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                       right: 20.0,
                     ),
                     child: TextFormField(
+                      controller: nameController,
                       validator: (String value){
                         if(value.isEmpty){
                           return 'Name field cannot be empty';
@@ -100,6 +104,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                     right: 20.0,
                   ),
                   child: TextFormField(
+                    controller: incomeController,
                     validator: (String value){
                       if(value.isEmpty){
                         return 'Monthly income value cannot be empty';

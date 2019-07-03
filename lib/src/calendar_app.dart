@@ -21,12 +21,12 @@ final Map<DateTime, List> _holidays = {
 
 class CalendarApp extends StatelessWidget {
 
-  List<Widget> pages = [MyHomePage(title: 'Table Calendar Demo'), HomePage()];
+  List<Widget> pages = [MyHomePage(title: 'Monthly Expenditure'), HomePage()];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Table Calendar Demo',
+        title: 'Monthly Expenditure',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,

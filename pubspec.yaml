@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
+  shared_preferences: ^0.5.3+1
   flutter:
     sdk: flutter
   firebase_core: ^0.4.0
@@ -46,6 +47,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  plugin:
+    androidPackage: io.flutter.plugins.sharedpreferences
+    iosPrefix: FLT
+    pluginClass: SharedPreferencesPlugin
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
