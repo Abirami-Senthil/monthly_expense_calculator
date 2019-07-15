@@ -21,12 +21,12 @@ final Map<DateTime, List> _holidays = {
 
 class CalendarApp extends StatelessWidget {
 
-  List<Widget> pages = [MyHomePage(title: 'Table Calendar Demo'), HomePage()];
+  List<Widget> pages = [MyHomePage(title: 'Monthly Expenditure'), HomePage()];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Table Calendar Demo',
+        title: 'Monthly Expenditure',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -157,7 +157,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+
+        onWillPop: _onBackPressed,
+
+        child:Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         leading: IconButton(icon: Icon(
@@ -212,6 +216,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         child: Icon(Icons.add),
         tooltip: 'Add a new expense',
       ),
+    )
     );
   }
 
@@ -389,4 +394,24 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     );
   }
+
+  Future<bool> _onBackPressed(){
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Do you want to exit the app?"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("No"),
+              onPressed: () => Navigator.pop(context,false),
+            ),
+            FlatButton(
+              child: Text("Yes"),
+              onPressed: () => Navigator.pop(context,true),
+            )
+          ],
+        )
+    );
+  }
+
 }

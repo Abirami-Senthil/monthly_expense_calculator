@@ -9,8 +9,10 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class WelcomeScreenState extends State<WelcomeScreen> {
-
   var _formKey = GlobalKey<FormState>();
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController incomeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +65,16 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                       right: 20.0,
                     ),
                     child: TextFormField(
-                      validator: (String value){
-                        if(value.isEmpty){
+                      controller: nameController,
+                      validator: (String value) {
+                        if (value.isEmpty) {
                           return 'Name field cannot be empty';
                         }
                       },
                       decoration: InputDecoration(
                           labelText: 'Name',
                           hintText: 'Enter your name. Eg.John Mayer',
-                          errorStyle: TextStyle(
-                            fontSize: 18.0
-                          ),
+                          errorStyle: TextStyle(fontSize: 18.0),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           )),
@@ -100,11 +101,12 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                     right: 20.0,
                   ),
                   child: TextFormField(
-                    validator: (String value){
-                      if(value.isEmpty){
+                    controller: incomeController,
+                    validator: (String value) {
+                      if (value.isEmpty) {
                         return 'Monthly income value cannot be empty';
                       }
-                      if(value.contains('-')){
+                      if (value.contains('-')) {
                         return 'Monthly income value cannot be negative';
                       }
                     },
@@ -112,9 +114,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                     decoration: InputDecoration(
                         labelText: 'Monthly Income',
                         hintText: 'Enter your monthly income in Rupees',
-                        errorStyle: TextStyle(
-                            fontSize: 18.0
-                        ),
+                        errorStyle: TextStyle(fontSize: 18.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0),
                         )),
@@ -138,11 +138,11 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     onPressed: () {
                       setState(() {
-                        if(_formKey.currentState.validate()){
+                        if (_formKey.currentState.validate()) {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                                return CalendarApp();
-                              }));
+                            return CalendarApp();
+                          }));
                         }
                       });
                     }),
@@ -153,4 +153,24 @@ class WelcomeScreenState extends State<WelcomeScreen> {
       ),
     );
   }
+
+  Future<bool> _onBackPressed(){
+    return showDialog(
+       context: context,
+       builder: (context) => AlertDialog(
+         title: Text("Do you want to exit the app?"),
+         actions: <Widget>[
+           FlatButton(
+             child: Text("No"),
+             onPressed: () => Navigator.pop(context,false),
+           ),
+           FlatButton(
+             child: Text("Yes"),
+             onPressed: () => Navigator.pop(context,true),
+           )
+         ],
+       )
+    );
+  }
+
 }
