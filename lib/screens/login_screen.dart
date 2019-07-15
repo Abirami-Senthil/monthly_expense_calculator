@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monthly_expense_calculator/src/calendar_app.dart';
+import '../src/blocs/expenses_bloc.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -137,12 +138,13 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                     ),
                     onPressed: () {
+                      bloc.registerUser(nameController.text);
                       setState(() {
                         if (_formKey.currentState.validate()) {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return CalendarApp();
-                          }));
+                                return CalendarApp();
+                              }));
                         }
                       });
                     }),
@@ -154,23 +156,31 @@ class WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
-  Future<bool> _onBackPressed(){
+  Future<bool> _onBackPressed() {
     return showDialog(
-       context: context,
-       builder: (context) => AlertDialog(
-         title: Text("Do you want to exit the app?"),
-         actions: <Widget>[
-           FlatButton(
-             child: Text("No"),
-             onPressed: () => Navigator.pop(context,false),
-           ),
-           FlatButton(
-             child: Text("Yes"),
-             onPressed: () => Navigator.pop(context,true),
-           )
-         ],
-       )
+        context: context,
+        builder: (context) =>
+            AlertDialog(
+              title: Text("Do you want to exit the app?"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("No"),
+                  onPressed: () => Navigator.pop(context, false),
+                ),
+                FlatButton(
+                  child: Text("Yes"),
+                  onPressed: () => Navigator.pop(context, true),
+                )
+              ],
+            )
     );
   }
 
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    nameController.dispose();
+    super.dispose();
+  }
 }
