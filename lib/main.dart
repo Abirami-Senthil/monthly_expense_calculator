@@ -7,8 +7,6 @@ import 'package:monthly_expense_calculator/screens/total_expense.dart';
 import 'package:monthly_expense_calculator/screens/logging_expenses.dart';
 import 'package:monthly_expense_calculator/charts/chart.dart';
 import 'src/app.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 void main() {
 //  initializeDateFormatting().then((_) => runApp(CalendarApp()));
