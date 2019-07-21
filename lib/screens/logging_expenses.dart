@@ -15,9 +15,12 @@ class LoggingExpense extends StatefulWidget {
   }
 }
 
+double totalAmount = 0;
+
 class LoggingExpenseState extends State<LoggingExpense> {
   var _formKey = GlobalKey<FormState>();
   final amtController = TextEditingController();
+
 
   var _expenseType = [
     'Entertainment',
@@ -52,7 +55,7 @@ class LoggingExpenseState extends State<LoggingExpense> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: true,
         appBar: AppBar(
           title: Text('Logging Daily Expenses'),
         ),
@@ -192,7 +195,7 @@ class LoggingExpenseState extends State<LoggingExpense> {
                                 ),
                                 onPressed: () {
                                   setState(() {
-                                    _calculateTotalAmountSpent();
+                                    calculateTotalAmountSpent();
                                   });
                                   if (_formKey.currentState.validate()) {
                                     var expense = Expense.fromData(
@@ -239,10 +242,11 @@ class LoggingExpenseState extends State<LoggingExpense> {
     });
   }
 
-  String _calculateTotalAmountSpent(){
+
+  String calculateTotalAmountSpent(){
     double amount = double.parse(amtController.text);
-    double totalAmount = 0;
     totalAmount = totalAmount + amount;
     debugPrint("The total amount spent is $totalAmount");
+    return '$totalAmount';
   }
 }
