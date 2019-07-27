@@ -31,7 +31,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:monthly_expense_calculator/screens/ProfileScreen.dart';
+import 'package:monthly_expense_calculator/screens/login_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -90,7 +90,7 @@ class _GoogleSignAppState extends State<GoogleSignApp> {
     Navigator.push(
       context,
       new MaterialPageRoute(
-        builder: (context) => new ProfileScreen(detailsUser: details),
+        builder: (context) => new WelcomeScreen(),
       ),
     );
     return userDetails;
