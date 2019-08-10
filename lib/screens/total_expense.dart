@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class TotalExpense extends StatelessWidget {
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -32,8 +31,8 @@ class TotalExpense extends StatelessWidget {
                     enabled: false,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                        )),
+                      borderRadius: BorderRadius.circular(5.0),
+                    )),
                   )),
               Container(
                 padding: EdgeInsets.only(top: 40.0, left: 30.0),

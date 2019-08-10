@@ -9,6 +9,10 @@ import 'dart:async';
 import 'package:monthly_expense_calculator/src/calendar_app.dart';
 
 class LoggingExpense extends StatefulWidget {
+  final Expense userExpense;
+
+  LoggingExpense({this.userExpense});
+
   @override
   State<StatefulWidget> createState() {
     return LoggingExpenseState();
@@ -20,7 +24,6 @@ double totalAmount = 0;
 class LoggingExpenseState extends State<LoggingExpense> {
   var _formKey = GlobalKey<FormState>();
   final amtController = TextEditingController();
-
 
   var _expenseType = [
     'Entertainment',
@@ -49,11 +52,19 @@ class LoggingExpenseState extends State<LoggingExpense> {
     'Others'
   ];
   var _currentItemSelected = 'Others';
+  var buttonText = 'Save';
 
   DateTime date1;
 
   @override
   Widget build(BuildContext context) {
+    var amt = widget.userExpense?.amount ?? -1; 
+    if (amt > 0) {
+      amtController.text = "$amt";
+      _currentItemSelected = widget.userExpense.category;
+      date1 = DateTime.parse(widget.userExpense.date);
+      buttonText = 'Update';
+    }
     return Scaffold(
         resizeToAvoidBottomPadding: true,
         appBar: AppBar(
@@ -111,6 +122,7 @@ class LoggingExpenseState extends State<LoggingExpense> {
                         Expanded(
                             child: Container(
                           child: DateTimePickerFormField(
+                            initialValue: date1,
                             inputType: InputType.date,
                             format: DateFormat("dd-MM-yyyy"),
                             editable: false,
@@ -129,7 +141,6 @@ class LoggingExpenseState extends State<LoggingExpense> {
                                 hasFloatingPlaceholder: false),
                             onChanged: (dt) {
                               setState(() => date1 = dt);
-                              print('Selected date: $date1');
                             },
                           ),
                         ))
@@ -187,7 +198,7 @@ class LoggingExpenseState extends State<LoggingExpense> {
                                 color: Colors.deepPurple,
                                 elevation: 6.0,
                                 child: Text(
-                                  'Save',
+                                  buttonText,
                                   style: TextStyle(
                                     fontSize: 20.0,
                                     color: Colors.white,
@@ -204,6 +215,7 @@ class LoggingExpenseState extends State<LoggingExpense> {
                                             .format(date1),
                                         int.parse(amtController.text));
                                     bloc.addExpense(expense);
+                                    Navigator.pop(context);
                                   }
                                 }),
                           ),
@@ -234,16 +246,13 @@ class LoggingExpenseState extends State<LoggingExpense> {
                 ))));
   }
 
-
-
   void _onDropDownItemSelected(String newValueSelected) {
     setState(() {
       this._currentItemSelected = newValueSelected;
     });
   }
 
-
-  String calculateTotalAmountSpent(){
+  String calculateTotalAmountSpent() {
     double amount = double.parse(amtController.text);
     totalAmount = totalAmount + amount;
     debugPrint("The total amount spent is $totalAmount");

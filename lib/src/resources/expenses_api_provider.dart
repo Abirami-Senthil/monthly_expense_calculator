@@ -11,8 +11,10 @@ class ExpensesApiProvider {
         .getDocuments();
     List<Expense> expenses = List();
     Expense expense;
-    doc.documents.forEach((document) =>
-        {expense = Expense(document.data), expenses.add(expense)});
+    doc.documents.forEach((document) => {
+          expense = Expense(document.data, document.documentID),
+          expenses.add(expense)
+        });
     return ExpensesModel(expenses);
   }
 
